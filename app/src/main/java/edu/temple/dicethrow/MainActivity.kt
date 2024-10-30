@@ -1,10 +1,14 @@
 package edu.temple.dicethrow
 
+import android.content.res.Configuration
 import android.os.Bundle
+import android.text.TextUtils.replace
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+
 
 
 /*
@@ -27,14 +31,28 @@ class MainActivity : AppCompatActivity(), ButtonFragment.ButtonInterface {
             - Show only Button Fragment if portrait
             - show both fragments if Landscape
           */
+        if (savedInstanceState == null) {
+            if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.container1, ButtonFragment())
+                    .commit()
+            } else {
+                supportFragmentManager.beginTransaction()
+                    .replace(R.id.container1, ButtonFragment())
+                    .replace(R.id.container2, DieFragment())
+                    .commit()
+            }
+        }
     }
 
     /* TODO 2: switch fragments if portrait (no need to switch fragments if Landscape)
         */
     // Remember to place Fragment transactions on BackStack so then can be reversed
     override fun buttonClicked() {
-
-    }
-
-
-}
+        if (resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container1, DieFragment())
+                .addToBackStack(null)
+                .commit()
+            }
+        }
