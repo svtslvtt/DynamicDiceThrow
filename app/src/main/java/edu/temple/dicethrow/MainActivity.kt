@@ -54,5 +54,6 @@ class MainActivity : AppCompatActivity(), ButtonFragment.ButtonInterface {
                 .replace(R.id.container1, DieFragment())
                 .addToBackStack(null)
                 .commit()
-            }
         }
+    }
+}
